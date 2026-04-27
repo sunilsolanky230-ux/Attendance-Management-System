@@ -1,4 +1,4 @@
-# Attendance Management System - Final Flask Version
+# Attendance Management System 
 
 A premium full-stack Attendance Management System built with:
 
