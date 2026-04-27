@@ -445,7 +445,7 @@ select:focus {
     font-weight: 800;
 }
 
-.demo-box {
+/* .demo-box {
     margin-top: 20px;
     padding: 14px;
     border-radius: 18px;
@@ -454,7 +454,7 @@ select:focus {
     display: grid;
     gap: 5px;
     color: #ccfbf1;
-}
+} */
 
 .flash-area {
     margin-bottom: 18px;
