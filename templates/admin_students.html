@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <span class="page-kicker">Admin Management</span>
+        <h1>Students</h1>
+        <p>Add, search, edit, and delete student records.</p>
+    </div>
+</div>
+
+<section class="grid-two">
+    <div class="card sticky-card">
+        <h2>Add Student</h2>
+        <p class="card-subtitle">Password is optional. If left empty, the student can signup later using roll number.</p>
+
+        <form method="POST" action="{{ url_for('add_student') }}" class="form">
+            <label>Roll Number</label>
+            <input type="text" name="roll_no" placeholder="Enter roll number" required>
+
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Enter full name" required>
+
+            <label>Class / Section</label>
+            <input type="text" name="class_name" placeholder="Enter class or section" required>
+
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter email address">
+
+            <label>Phone</label>
+            <input type="text" name="phone" placeholder="Enter phone number">
+
+            <label>Temporary Password</label>
+            <input type="password" name="password" placeholder="Optional temporary password">
+
+            <button type="submit" class="btn primary full">Add Student</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <div class="section-title">
+            <div>
+                <h2>Student List</h2>
+                <p>Search by roll number, name, class, or email.</p>
+            </div>
+            <form method="GET" class="search-form">
+                <input type="text" name="search" value="{{ search }}" placeholder="Search student">
+                <button class="btn small">Search</button>
+            </form>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Email</th>
+                        <th>Account</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.roll_no }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.class_name }}</td>
+                        <td>{{ student.email or "-" }}</td>
+                        <td>
+                            {% if student.password_hash %}
+                            <span class="status present">Registered</span>
+                            {% else %}
+                            <span class="status not-marked">Pending</span>
+                            {% endif %}
+                        </td>
+                        <td class="actions">
+                            <a href="{{ url_for('edit_student', student_id=student.id) }}" class="btn small">Edit</a>
+                            <form method="POST" action="{{ url_for('delete_student', student_id=student.id) }}" onsubmit="return confirm('Delete this student?');">
+                                <button class="btn small danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="empty">No students found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

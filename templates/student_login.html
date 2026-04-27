@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-card">
+        <div class="auth-badge student-badge">Student</div>
+        <h1>Student Login</h1>
+        <p class="muted">Login with roll number to view your attendance.</p>
+
+        <form method="POST" class="form">
+            <label>Roll Number</label>
+            <input type="text" name="roll_no" placeholder="Enter roll number" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+
+            <button type="submit" class="btn primary teal full">Login as Student</button>
+        </form>
+
+        <div class="auth-links">
+            <a href="{{ url_for('student_signup') }}">Create student account</a>
+            <a href="{{ url_for('index') }}">Back to portal</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-card wide-auth">
+        <div class="auth-badge student-badge">Student</div>
+        <h1>Student Signup</h1>
+        <p class="muted">Create your student account using your roll number.</p>
+
+        <form method="POST" class="form two-column-form">
+            <div>
+                <label>Roll Number</label>
+                <input type="text" name="roll_no" placeholder="Enter roll number" required>
+            </div>
+
+            <div>
+                <label>Full Name</label>
+                <input type="text" name="name" placeholder="Enter full name" required>
+            </div>
+
+            <div>
+                <label>Class / Section</label>
+                <input type="text" name="class_name" placeholder="Enter class or section" required>
+            </div>
+
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter email address" required>
+            </div>
+
+            <div>
+                <label>Phone</label>
+                <input type="text" name="phone" placeholder="Enter phone number">
+            </div>
+
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Create password" required>
+            </div>
+
+            <div>
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" placeholder="Confirm password" required>
+            </div>
+
+            <div class="form-action">
+                <button type="submit" class="btn primary teal full">Create Student Account</button>
+            </div>
+        </form>
+
+        <div class="auth-links">
+            <a href="{{ url_for('student_login') }}">Already have a student account?</a>
+            <a href="{{ url_for('index') }}">Back to portal</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

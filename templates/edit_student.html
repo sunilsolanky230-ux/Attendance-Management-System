@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <span class="page-kicker">Student Record</span>
+        <h1>Edit Student</h1>
+        <p>Update student details or reset student password.</p>
+    </div>
+    <a href="{{ url_for('admin_students') }}" class="btn">Back</a>
+</div>
+
+<section class="card narrow">
+    <form method="POST" class="form">
+        <label>Roll Number</label>
+        <input type="text" name="roll_no" value="{{ student.roll_no }}" placeholder="Enter roll number" required>
+
+        <label>Full Name</label>
+        <input type="text" name="name" value="{{ student.name }}" placeholder="Enter full name" required>
+
+        <label>Class / Section</label>
+        <input type="text" name="class_name" value="{{ student.class_name }}" placeholder="Enter class or section" required>
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ student.email or '' }}" placeholder="Enter email address">
+
+        <label>Phone</label>
+        <input type="text" name="phone" value="{{ student.phone or '' }}" placeholder="Enter phone number">
+
+        <label>Reset Password</label>
+        <input type="password" name="new_password" placeholder="Leave empty to keep current password">
+
+        <button type="submit" class="btn primary">Update Student</button>
+    </form>
+</section>
+{% endblock %}

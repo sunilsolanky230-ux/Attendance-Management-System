@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <span class="page-kicker">Student Attendance</span>
+        <h1>My Attendance</h1>
+        <p>Roll Number: {{ student.roll_no }} | Class: {{ student.class_name }}</p>
+    </div>
+    <a href="{{ url_for('student_profile') }}" class="btn">Edit Profile</a>
+</div>
+
+<section class="student-hero">
+    <div>
+        <h2>{{ student.name }}</h2>
+        <p>Your overall attendance percentage is shown below.</p>
+    </div>
+    <div class="percentage-ring">
+        <span>{{ attendance_percentage }}%</span>
+        <small>Attendance</small>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <div class="stat-card">
+        <p>Total Marked Days</p>
+        <h2>{{ total_marked }}</h2>
+    </div>
+    <div class="stat-card success-stat">
+        <p>Present Days</p>
+        <h2>{{ present_count }}</h2>
+    </div>
+    <div class="stat-card danger-stat">
+        <p>Absent Days</p>
+        <h2>{{ absent_count }}</h2>
+    </div>
+</section>
+
+<section class="card">
+    <div class="section-title">
+        <div>
+            <h2>Attendance History</h2>
+            <p>Latest attendance records marked by admin.</p>
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.attendance_date }}</td>
+                    <td>
+                        <span class="status {{ record.status|lower }}">
+                            {{ record.status }}
+                        </span>
+                    </td>
+                    <td>{{ record.updated_at }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3" class="empty">No attendance records available yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

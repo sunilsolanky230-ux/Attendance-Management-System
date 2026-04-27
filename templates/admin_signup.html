@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-card">
+        <div class="auth-badge admin-badge">Admin</div>
+        <h1>Admin Signup</h1>
+        <p class="muted">Create a new admin account for managing the system.</p>
+
+        <form method="POST" class="form">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Create username" required>
+
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter email address" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Create password" required>
+
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" placeholder="Confirm password" required>
+
+            <button type="submit" class="btn primary full">Create Admin Account</button>
+        </form>
+
+        <div class="auth-links">
+            <a href="{{ url_for('admin_login') }}">Already have an admin account?</a>
+            <a href="{{ url_for('index') }}">Back to portal</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <span class="page-kicker">Daily Attendance</span>
+        <h1>Mark Attendance</h1>
+        <p>Select date and class, then mark students as present or absent.</p>
+    </div>
+</div>
+
+<section class="card">
+    <form method="GET" class="filter-form">
+        <div>
+            <label>Select Date</label>
+            <input type="date" name="date" value="{{ selected_date }}">
+        </div>
+
+        <div>
+            <label>Class / Section</label>
+            <select name="class_name">
+                <option value="">All Classes</option>
+                {% for cls in classes %}
+                <option value="{{ cls.class_name }}" {% if selected_class == cls.class_name %}selected{% endif %}>
+                    {{ cls.class_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button class="btn">Load Students</button>
+    </form>
+
+    <form method="POST">
+        <input type="hidden" name="attendance_date" value="{{ selected_date }}">
+        <input type="hidden" name="class_name" value="{{ selected_class }}">
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.roll_no }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.class_name }}</td>
+                        <td>
+                            <input type="hidden" name="student_id" value="{{ student.id }}">
+                            <label class="radio-pill">
+                                <input type="radio" name="status_{{ student.id }}" value="Present" {% if student.status == 'Present' %}checked{% endif %}>
+                                Present
+                            </label>
+                            <label class="radio-pill absent-pill">
+                                <input type="radio" name="status_{{ student.id }}" value="Absent" {% if student.status != 'Present' %}checked{% endif %}>
+                                Absent
+                            </label>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty">No students available for this selection.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if students %}
+        <button type="submit" class="btn primary save-btn">Save Attendance</button>
+        {% endif %}
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="portal-page">
+    <div class="hero-card">
+        <div class="hero-kicker">Premium Flask Project</div>
+        <h1>Attendance Management System</h1>
+        <p>
+            A role-based attendance platform with separate access for admins and students.
+            Manage students, mark attendance, export reports, and let students track their own records.
+        </p>
+
+        <div class="portal-grid">
+            <div class="portal-card admin">
+                <div class="portal-icon">AD</div>
+                <h2>Admin Portal</h2>
+                <p>Create admin account, manage students, mark attendance, and export reports.</p>
+                <div class="portal-actions">
+                    <a href="{{ url_for('admin_login') }}" class="btn primary">Admin Login</a>
+                    <a href="{{ url_for('admin_signup') }}" class="btn ghost">Admin Signup</a>
+                </div>
+            </div>
+
+            <div class="portal-card student">
+                <div class="portal-icon">ST</div>
+                <h2>Student Portal</h2>
+                <p>Register as a student, login with roll number, and view attendance history.</p>
+                <div class="portal-actions">
+                    <a href="{{ url_for('student_login') }}" class="btn primary teal">Student Login</a>
+                    <a href="{{ url_for('student_signup') }}" class="btn ghost">Student Signup</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

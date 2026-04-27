@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-shell">
+    <div class="auth-card">
+        <div class="auth-badge admin-badge">Admin</div>
+        <h1>Admin Login</h1>
+        <p class="muted">Login to manage students, attendance, and reports.</p>
+
+        <form method="POST" class="form">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Enter username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+
+            <button type="submit" class="btn primary full">Login as Admin</button>
+        </form>
+
+        <div class="auth-links">
+            <a href="{{ url_for('admin_signup') }}">Create admin account</a>
+            <a href="{{ url_for('index') }}">Back to portal</a>
+        </div>
+
+        <div class="demo-box">
+            <strong>Default Admin</strong>
+            <span>Username: admin</span>
+            <span>Password: admin123</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

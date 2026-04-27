@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <span class="page-kicker">Student Account</span>
+        <h1>My Profile</h1>
+        <p>Update your personal details and password.</p>
+    </div>
+    <a href="{{ url_for('student_dashboard') }}" class="btn">Back</a>
+</div>
+
+<section class="card narrow">
+    <div class="profile-info">
+        <span>Roll Number</span>
+        <strong>{{ student.roll_no }}</strong>
+        <small>Roll number cannot be changed from student portal.</small>
+    </div>
+
+    <form method="POST" class="form">
+        <label>Full Name</label>
+        <input type="text" name="name" value="{{ student.name }}" placeholder="Enter full name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ student.email or '' }}" placeholder="Enter email address">
+
+        <label>Phone</label>
+        <input type="text" name="phone" value="{{ student.phone or '' }}" placeholder="Enter phone number">
+
+        <label>New Password</label>
+        <input type="password" name="password" placeholder="Leave empty to keep current password">
+
+        <button type="submit" class="btn primary teal">Update Profile</button>
+    </form>
+</section>
+{% endblock %}

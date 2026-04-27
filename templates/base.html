@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "Attendance Management System" }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+    <div class="background-grid"></div>
+
+    {% if current_role %}
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">A</div>
+            <div>
+                <h2>AttendPro</h2>
+                <p>{{ "Admin Console" if current_role == "admin" else "Student Portal" }}</p>
+            </div>
+        </div>
+
+        {% if current_role == "admin" %}
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('admin_students') }}">Students</a>
+            <a href="{{ url_for('mark_attendance') }}">Mark Attendance</a>
+            <a href="{{ url_for('admin_reports') }}">Reports</a>
+            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+        </nav>
+        {% elif current_role == "student" %}
+        <nav>
+            <a href="{{ url_for('student_dashboard') }}">My Attendance</a>
+            <a href="{{ url_for('student_profile') }}">My Profile</a>
+            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+        </nav>
+        {% endif %}
+
+        <div class="side-user">
+            <span>Logged in as</span>
+            <strong>{{ current_user }}</strong>
+        </div>
+    </aside>
+    {% endif %}
+
+    <main class="{{ 'main' if current_role else 'auth-main' }}">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-area">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

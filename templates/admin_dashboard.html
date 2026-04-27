@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <span class="page-kicker">Admin Overview</span>
+        <h1>Dashboard</h1>
+        <p>Today: {{ today }}</p>
+    </div>
+    <a href="{{ url_for('mark_attendance') }}" class="btn primary">Mark Attendance</a>
+</div>
+
+<section class="stats-grid">
+    <div class="stat-card">
+        <p>Total Students</p>
+        <h2>{{ total_students }}</h2>
+    </div>
+    <div class="stat-card">
+        <p>Registered Students</p>
+        <h2>{{ registered_students }}</h2>
+    </div>
+    <div class="stat-card success-stat">
+        <p>Present Today</p>
+        <h2>{{ present_today }}</h2>
+    </div>
+    <div class="stat-card danger-stat">
+        <p>Absent Today</p>
+        <h2>{{ absent_today }}</h2>
+    </div>
+</section>
+
+<section class="card">
+    <div class="section-title">
+        <div>
+            <h2>Recent Students</h2>
+            <p>Latest student records added to the system.</p>
+        </div>
+        <a href="{{ url_for('admin_students') }}" class="link-highlight">View all</a>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Email</th>
+                    <th>Account</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in recent_students %}
+                <tr>
+                    <td>{{ student.roll_no }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.class_name }}</td>
+                    <td>{{ student.email or "-" }}</td>
+                    <td>
+                        {% if student.password_hash %}
+                        <span class="status present">Registered</span>
+                        {% else %}
+                        <span class="status not-marked">Not Registered</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="empty">No students added yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
